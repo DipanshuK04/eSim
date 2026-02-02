@@ -74,7 +74,7 @@ sudo apt install -y kicad
 - Prevents installer crash
 - Maintains forward compatibility
 
-![KiCad screenshot](Ubuntu/error_images/kicad_error.jfif)
+![KiCad screenshot](/Ubuntu/error_images/kicad_error.jpg)
 
 
 ---
@@ -87,8 +87,8 @@ sudo apt install -y kicad
 - NGHDL archive extracted into an unexpected directory.
 - Verilator dependency mismatch
 
-![NGHDL LLVM error screenshot](Ubuntu/error_images/nghdl_error.jfif)
-![GTK](Ubuntu/error_images/gtk_error.jfif)
+![NGHDL LLVM error screenshot](/Ubuntu/error_images/nghdl_error.jpg)
+![GTK](/Ubuntu/error_images/gtk_error.jpg)
 
 
 #### Action Taken
@@ -124,7 +124,7 @@ Hence
 Unhandled version llvm 20.1.8
 ```
 
-![LLVM error screenshot](Ubuntu/error_images/LLVM_error.jfif)
+![LLVM error screenshot](/Ubuntu/error_images/LLVM_error.jpg)
 
 #### Attempted Resolution
 
