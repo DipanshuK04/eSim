@@ -1,0 +1,2 @@
+sudo apt update 
+sudo apt install git make cmake gcc g++ llvm-20-dev git clone https://github.com/ghdl/ghdl.git cd ghdl git checkout ghdl-4.3
