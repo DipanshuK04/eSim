@@ -43,7 +43,7 @@ run_version_script() {
         "23.04")
             SCRIPT="$SCRIPT_DIR/install-eSim-23.04.sh"
             ;;
-        "24.04")
+        "24.04"|"25.10")
             SCRIPT="$SCRIPT_DIR/install-eSim-24.04.sh"
             ;;
         *)
@@ -78,4 +78,6 @@ if [[ "$ARGUMENT" != "--install" && "$ARGUMENT" != "--uninstall" ]]; then
 fi
 
 get_ubuntu_version
-run_version_script
+Run_version_script
+
+
