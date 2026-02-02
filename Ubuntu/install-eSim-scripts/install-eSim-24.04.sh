@@ -103,58 +103,36 @@ function installSky130Pdk
 
 }
 
-
 function installKicad
 {
     echo "Installing KiCad..........................."
 
-    # Detect Ubuntu version
     ubuntu_version=$(lsb_release -rs)
 
-    # Define KiCad PPAs based on Ubuntu version
     if [[ "$ubuntu_version" == "24.04" ]]; then
         echo "Ubuntu 24.04 detected."
         kicadppa="kicad/kicad-8.0-releases"
-
-        # Check if KiCad is installed using dpkg-query for the main package
-        if dpkg -s kicad &>/dev/null; then
-            installed_version=$(dpkg-query -W -f='${Version}' kicad | cut -d'.' -f1)
-            if [[ "$installed_version" != "8" ]]; then
-                echo "A different version of KiCad ($installed_version) is installed."
-                read -p "Do you want to remove it and install KiCad 8.0? (yes/no): " response
-
-                if [[ "$response" =~ ^([Yy][Ee][Ss]|[Yy])$ ]]; then
-                    echo "Removing KiCad $installed_version..."
-                    sudo apt-get remove --purge -y kicad kicad-footprints kicad-libraries kicad-symbols kicad-templates
-                    sudo apt-get autoremove -y
-                else
-                    echo "Exiting installation. KiCad $installed_version remains installed."
-                    exit 1
-                fi
-            else
-                echo "KiCad 8.0 is already installed."
-                exit 0
-            fi
-        fi
-
     else
+        echo "Using default KiCad installation method for Ubuntu $ubuntu_version"
         kicadppa="kicad/kicad-6.0-releases"
+        
+        # For newer Ubuntu versions like 25.10, we will skip adding the PPA
+        echo "Skipping PPA addition for KiCad, proceeding with default Ubuntu repositories or Snap."
     fi
 
-    # Check if the PPA is already added
-    if ! grep -q "^deb .*${kicadppa}" /etc/apt/sources.list /etc/apt/sources.list.d/* 2>/dev/null; then
-        echo "Adding KiCad PPA to local apt repository: $kicadppa"
-        sudo add-apt-repository -y "ppa:$kicadppa"
+    if ! dpkg -s kicad &>/dev/null; then
+        echo "KiCad is not installed, installing it..."
+
+        # Try installing KiCad from the official Ubuntu repository (recommended for Ubuntu 25.10)
         sudo apt-get update
+        sudo apt-get install -y kicad
+
+        echo "KiCad installation completed successfully!"
     else
-        echo "KiCad PPA is already present in sources."
+        echo "KiCad is already installed."
     fi
-
-    # Install KiCad packages
-    sudo apt-get install -y --no-install-recommends kicad kicad-footprints kicad-libraries kicad-symbols kicad-templates
-
-    echo "KiCad installation completed successfully!"
 }
+
 
 
 function installDependency
